@@ -13,6 +13,7 @@ class MyWebController extends GetxController {
   bool loading = false;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
+      preferredContentMode: UserPreferredContentMode.DESKTOP,
       javaScriptEnabled: true,
       useShouldOverrideUrlLoading: true,
       useOnDownloadStart: true,
@@ -20,10 +21,11 @@ class MyWebController extends GetxController {
       mediaPlaybackRequiresUserGesture: false,
     ),
     android: AndroidInAppWebViewOptions(
-      initialScale: 100,
+      initialScale: 400,
+      textZoom: 100,
       allowFileAccess: true,
       useShouldInterceptRequest: true,
-      useHybridComposition: true,
+      useHybridComposition: false,
     ),
     ios: IOSInAppWebViewOptions(
       allowsInlineMediaPlayback: true,

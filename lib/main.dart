@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
@@ -32,8 +31,7 @@ void main() async {
       ));
     }*/
   }
-  await Future.delayed(const Duration(seconds: 2))
-      .then((value) => FlutterNativeSplash.remove());
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
