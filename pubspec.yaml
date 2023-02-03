@@ -10,6 +10,8 @@ dependencies:
   get: 4.6.5
   flutter_inappwebview: ^5.7.2+3
   url_launcher: ^6.1.1
+  modal_progress_hud_nsn: ^0.3.0
+
 
 
   flutter: 

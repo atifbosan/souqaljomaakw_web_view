@@ -22,33 +22,26 @@ class SplashView extends GetView<SplashController> {
                   image: AssetImage("assets/SPlash.jpg"),
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.offNamed(Routes.MYWEB),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 60, left: 10, right: 10),
-                      child: Container(
-                        height: 60,
-                        width: 360,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            "assets/btn_image.png",
-                            scale: 2,
-                          ),
-                        ),
-                      ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      strokeWidth: 5.0,
+                      color: Colors.white,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Loading...",
+                      style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

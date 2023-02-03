@@ -10,6 +10,7 @@ class MyWebController extends GetxController {
   bool showErrorPage = false;
   String url = '';
   double progress = 0;
+  int count = 0;
   bool loading = false;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
@@ -56,6 +57,8 @@ class MyWebController extends GetxController {
 
   onChangedProgress(load) {
     progress = load / 100;
+    count = load;
+    print("counter:${load}");
     update();
   }
 
