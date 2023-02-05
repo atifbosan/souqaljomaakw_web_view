@@ -28,6 +28,25 @@
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
+
+        <key>NSAppTransportSecurity</key>
+        <dict>
+           <key>NSAllowsArbitraryLoads</key><true/>
+        </dict>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>my app would like to save photos from the app to your gallery</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>my app would like to access your photo gallery for uploading images to the app</string>
+        <key>NSCameraUsageDescription</key>
+        <string>my app use camera</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>When in use permissions</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>always permissions</string>
+        <key>NSLocationAlwaysAndWhenInUsageDescription</key>
+        <string>Always and in usage permissions</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>my app user when the microphone is accessed for the first time</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
