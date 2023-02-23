@@ -20,26 +20,28 @@ class MyWebView extends GetView<MyWebController> {
               return false;
             },
             child: Scaffold(
-              /* appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.white,
-                title: Image.asset(
-                  "assets/name_logo.png",
-                  scale: 4,
-                ),
-                centerTitle: true,
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.refresh,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      controller.inAppWebViewController.reload();
-                    },
-                  ),
-                ],
-              ),*/
+              /* appBar:
+                  AppBar(
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      title: Image.asset(
+                        "assets/name_logo.png",
+                        scale: 4,
+                      ),
+                      centerTitle: true,
+                      actions: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            controller.inAppWebViewController.reload();
+                          },
+                        ),
+                      ],
+                    )
+                 ,*/
               body: controller.showErrorPage == true
                   ? Center(
                       child: Container(
@@ -86,31 +88,33 @@ class MyWebView extends GetView<MyWebController> {
                     )
                   : ModalProgressHUD(
                       progressIndicator: Container(
-                        height: 110,
-                        width: 90,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.black.withOpacity(0.5)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "Loading...",
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            )
-                          ],
+                        child: Container(
+                          height: 110,
+                          width: 90,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.black.withOpacity(0.5)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "Loading...",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      inAsyncCall: controller.progress < 0.6 ? true : false,
+                      inAsyncCall: controller.progress < 0.9 ? true : false,
                       child: SafeArea(
                         child: controller.showErrorPage == false
                             ? InAppWebView(
@@ -119,6 +123,31 @@ class MyWebView extends GetView<MyWebController> {
                                 onWebViewCreated: (webController) {
                                   controller.inAppWebViewController =
                                       webController;
+                                  webController.addJavaScriptHandler(
+                                    handlerName: 'removeRecaptcha',
+                                    callback: (args) {
+                                      String html = args[0];
+                                      String newHtml = html.replaceAll(
+                                        RegExp(
+                                            r'<div class="g-recaptcha".*?</div>'),
+                                        '',
+                                      );
+                                      return newHtml;
+                                    },
+                                  );
+                                },
+                                onLoadStop: (webCtrl, url) async {
+                                  String html = await webCtrl.evaluateJavascript(
+                                      source:
+                                          'document.documentElement.outerHTML;');
+
+                                  String newHtml = await webCtrl
+                                      .callAsyncJavaScript(
+                                          functionBody:
+                                              'removeRecaptcha("$html");')
+                                      .toString();
+                                  webCtrl.loadData(
+                                      data: newHtml, mimeType: 'text/html');
                                 },
                                 initialUrlRequest: URLRequest(
                                     url: Uri.parse(

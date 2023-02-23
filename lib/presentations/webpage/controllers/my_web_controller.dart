@@ -8,6 +8,7 @@ class MyWebController extends GetxController {
   late InAppWebViewController inAppWebViewController;
   late PullToRefreshController pullToRefreshController;
   bool showErrorPage = false;
+  bool showAppBar = true;
   String url = '';
   double progress = 0;
   int count = 0;
@@ -15,16 +16,16 @@ class MyWebController extends GetxController {
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
       preferredContentMode: UserPreferredContentMode.DESKTOP,
-      javaScriptEnabled: true,
+      javaScriptEnabled: false,
       useShouldOverrideUrlLoading: true,
       useOnDownloadStart: true,
-      allowFileAccessFromFileURLs: true,
+      allowFileAccessFromFileURLs: false,
       mediaPlaybackRequiresUserGesture: false,
     ),
     android: AndroidInAppWebViewOptions(
       initialScale: 400,
       textZoom: 100,
-      allowFileAccess: true,
+      allowFileAccess: false,
       useShouldInterceptRequest: true,
       useHybridComposition: false,
     ),
@@ -58,6 +59,7 @@ class MyWebController extends GetxController {
   onChangedProgress(load) {
     progress = load / 100;
     count = load;
+
     print("counter:${load}");
     update();
   }
