@@ -20,6 +20,7 @@ class MyWebView extends GetView<MyWebController> {
               return false;
             },
             child: Scaffold(
+              backgroundColor: Colors.white,
               /* appBar:
                   AppBar(
                       elevation: 0,
